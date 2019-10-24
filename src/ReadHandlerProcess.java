@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class ReadHandlerProcess extends LinkedBlockingDeque implements ReadHandler{
@@ -11,16 +8,17 @@ public class ReadHandlerProcess extends LinkedBlockingDeque implements ReadHandl
     }
 
     @Override
-    public Object get() {
+    public synchronized Object get() {
+        if(this.size() > 0) {
+            return this.removeFirst();
+        }else{
+            return null;
+        }
 
-        Object obj = this.removeFirst();
-
-        if(obj == null) return null;
-        return obj;
     }
 
     @Override
-    public void setHandler(byte[] datas) {
+    public void setHandler(byte[] datas, File file) {
 
         ByteArrayInputStream is = null;
         BufferedReader br = null;
@@ -35,6 +33,10 @@ public class ReadHandlerProcess extends LinkedBlockingDeque implements ReadHandl
                 str += line+"\r\n";
             }
             this.add(str);
+
+
+            file.delete();
+
         }catch(IOException ex){
             ex.printStackTrace();
         }finally {

@@ -1,6 +1,8 @@
+import java.io.File;
+
 public interface ReadHandler {
 
-    public void setHandler(byte[] data);
+    public void setHandler(byte[] data, File file);
 
     public void put(Object obj);
 

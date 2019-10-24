@@ -16,6 +16,7 @@ public class FileReadThread extends Thread {
                 while(cnt > 0){
                     String data = (String)fileQueuMain.fileQueu.getData();
                     if(data != null) {
+                        System.out.println(fileQueuMain.fileQueu.getDate() +"::::::" + this.getName() + ":" + this.getId()+"#################");
                         System.out.println(data);
                     }
                 }
