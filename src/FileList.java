@@ -35,11 +35,11 @@ public class FileList extends LinkedBlockingDeque{
         }
     }
 
-    public void AddFileQueu(Object obj) throws InterruptedException{
+    public void AddFileQueu(Object obj){
         this.add(obj);
     }
 
-    public Object getFileQueu() throws InterruptedException{
+    public Object getFileQueu(){
 
         if(this.size() > 0) {
             return this.removeFirst();

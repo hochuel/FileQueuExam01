@@ -19,7 +19,7 @@ public class FileReadThread extends Thread {
                         System.out.println(data);
                     }
                 }
-                this.sleep(2000);
+                this.sleep(5000);
             }catch (Exception e){
                 e.printStackTrace();
             }
