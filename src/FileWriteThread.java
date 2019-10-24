@@ -1,4 +1,4 @@
-public class FileWriteThread extends Thread {
+public class FileWriteThread implements Runnable {
 
 
     private FileQueuMain fileQueuMain;
@@ -27,7 +27,7 @@ public class FileWriteThread extends Thread {
 
                 fileQueuMain.fileQueu.fileWrite(str);
 
-                this.sleep(100);
+                Thread.sleep(1000);
 
 
             }catch(Exception e){

@@ -1,19 +1,31 @@
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class App {
     public static void main(String[] args){
 
+        int writeThreadCnt = 5;
+        int readThreadCnt = 1;
+
+        ExecutorService writeExecutorService = Executors.newFixedThreadPool(writeThreadCnt);
+        ExecutorService readExecutorService = Executors.newFixedThreadPool(readThreadCnt);
 
         FileQueuMain fileQueuMain = FileQueuMain.getInstance();
 
-        FileWriteThread fwt = new FileWriteThread(fileQueuMain);
-        fwt.start();
 
 
-        int threadCnt = 1;
-        FileReadThread [] frt = new FileReadThread[threadCnt];
+        FileWriteThread[] fwt = new FileWriteThread[writeThreadCnt];
+        for(int i = 0; i < writeThreadCnt; i++) {
+            fwt[i] = new FileWriteThread(fileQueuMain);
+            writeExecutorService.execute(fwt[i]);
+        }
 
-        for(int i = 0; i < threadCnt; i++) {
+
+
+        FileReadThread [] frt = new FileReadThread[readThreadCnt];
+        for(int i = 0; i < readThreadCnt; i++) {
             frt[i] = new FileReadThread(fileQueuMain);
-            frt[i].start();
+            readExecutorService.execute(frt[i]);
         }
 
     }

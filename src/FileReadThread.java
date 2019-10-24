@@ -1,6 +1,6 @@
 import java.io.File;
 
-public class FileReadThread extends Thread {
+public class FileReadThread implements Runnable {
 
     private FileQueuMain fileQueuMain = null;
 
@@ -16,11 +16,12 @@ public class FileReadThread extends Thread {
                 while(cnt > 0){
                     String data = (String)fileQueuMain.fileQueu.getData();
                     if(data != null) {
-                        System.out.println(fileQueuMain.fileQueu.getDate() +"::::::" + this.getName() + ":" + this.getId()+"#################");
+                        System.out.println(fileQueuMain.fileQueu.getDate() +"::::::"+"#################");
                         System.out.println(data);
+                        fileQueuMain.fileQueu.fileDelete();
                     }
                 }
-                this.sleep(5000);
+                Thread.sleep(5000);
             }catch (Exception e){
                 e.printStackTrace();
             }

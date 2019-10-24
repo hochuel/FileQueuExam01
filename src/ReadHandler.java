@@ -7,4 +7,6 @@ public interface ReadHandler {
     public void put(Object obj);
 
     public Object get();
+
+    public void fileDelete();
 }

@@ -124,4 +124,9 @@ public class FileQueu {
         return fileList.getQueuSize();
     }
 
+
+    public void fileDelete(){
+        readHandler.fileDelete();
+    }
+
 }

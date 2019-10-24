@@ -2,9 +2,18 @@ import java.io.*;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class ReadHandlerProcess extends LinkedBlockingDeque implements ReadHandler{
+
+    private File file = null;
+
     @Override
     public void put(Object obj) {
         this.add(obj);
+    }
+
+    @Override
+    public void fileDelete() {
+        file.delete();
+        System.out.println(file.getAbsolutePath() +"== delete........" );
     }
 
     @Override
@@ -14,7 +23,6 @@ public class ReadHandlerProcess extends LinkedBlockingDeque implements ReadHandl
         }else{
             return null;
         }
-
     }
 
     @Override
@@ -35,7 +43,7 @@ public class ReadHandlerProcess extends LinkedBlockingDeque implements ReadHandl
             this.add(str);
 
 
-            file.delete();
+            this.file = file;
 
         }catch(IOException ex){
             ex.printStackTrace();
