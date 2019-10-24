@@ -1,11 +1,10 @@
 public class FileWriteThread extends Thread {
 
-    private FileList fileList;
+
     private FileQueu fileQueu;
 
-    public FileWriteThread(FileList fileList, FileQueu fileQueu){
+    public FileWriteThread(FileQueu fileQueu){
 
-        this.fileList = fileList;
         this.fileQueu = fileQueu;
     }
 
@@ -24,7 +23,7 @@ public class FileWriteThread extends Thread {
                 }
 
 
-                fileQueu.fileWrite(str, fileList);
+                fileQueu.fileWrite(str);
 
                 this.sleep(100);
 

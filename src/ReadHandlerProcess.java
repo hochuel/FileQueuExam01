@@ -4,6 +4,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ReadHandlerProcess implements ReadHandler{
+    @Override
+    public void put(Object obj) {
+
+    }
+
+    @Override
+    public Object get() {
+        return null;
+    }
 
     @Override
     public void setHandler(byte[] datas) {

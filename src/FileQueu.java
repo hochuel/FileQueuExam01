@@ -8,14 +8,25 @@ import java.util.Date;
 
 public class FileQueu {
 
-    private RandomAccessFile rf = null;
+    private FileList fileList = null;
+    private ReadHandler readHandler = null;
 
-    private FileChannel channel = null;
+    public FileQueu() throws InterruptedException{
+        this.fileList = new FileList();
+    }
+
+
+    public void setReadHandler(ReadHandler readHandler) {
+        this.readHandler = readHandler;
+    }
 
     private final String filePath = "/home/dextop/data/";
 
 
-    public void fileWrite(String str, FileList fileList) throws IOException, InterruptedException {
+    public void fileWrite(String str) throws IOException, InterruptedException {
+        RandomAccessFile rf = null;
+
+        FileChannel channel = null;
 
         String fileName = filePath + "srv."+System.currentTimeMillis();
 
@@ -30,40 +41,43 @@ public class FileQueu {
         map.position(0);
         map.put(str.getBytes());
 
-        close();
+        channel.close();
+        rf.close();
 
         fileList.AddQueu(file);
 
     }
 
 
-    public void fileRead(String threadName, File file, ReadHandler readHandler) throws IOException{
+    public void fileRead(String threadName, File file) throws IOException{
+
+        RandomAccessFile rf = null;
+        FileChannel channel = null;
+
         if(file != null) {
-            rf = new RandomAccessFile(file, "rw");
+            rf = new RandomAccessFile(file, "r");
             channel = rf.getChannel();
 
 
-            MappedByteBuffer map = channel.map(FileChannel.MapMode.READ_WRITE, 0, (int) rf.length());
+            MappedByteBuffer map = channel.map(FileChannel.MapMode.READ_ONLY, 0, (int) rf.length());
 
             byte[] data = new byte[(int) rf.length()];
             map.get(data);
 
-            System.out.println(threadName +"::" + file.getAbsolutePath() + "#########################");
+            //System.out.println(threadName +"::" + file.getAbsolutePath() + "#########################");
             //System.out.println(new String(data));
-            readHandler.getHandler(data);
+            readHandler.setHandler(data);
 
-            close();
+            channel.close();
+            rf.close();
 
             file.delete();
         }
     }
 
-    public void close() throws IOException{
-        if(rf != null ) rf.close();
-        if(channel != null) channel.close();
 
-        //if(is != null) is.close();
-        //if(br != null) br.close();
+    public void fileRead(File file) throws IOException{
+        fileRead("", file);
     }
 
     public String getDate(){

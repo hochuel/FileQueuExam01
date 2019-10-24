@@ -3,20 +3,18 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public class FileList {
+public class FileList extends LinkedBlockingDeque{
 
     private  int COMPARETYPE_NAME = 0;
     private  int COMPARETYPE_DATE = 1;
 
-    private LinkedBlockingDeque fileQueu = null;
+
 
 
     private File file;
     private File[] files;
 
     public FileList() throws InterruptedException{
-        fileQueu = new LinkedBlockingDeque();
-
 
         String path = "/home/dextop/data";
         file = new File(path);
@@ -38,26 +36,21 @@ public class FileList {
     }
 
     public void AddQueu(Object obj) throws InterruptedException{
-
-        fileQueu.add(obj);
-
-        //notifyAll();
-
+        this.add(obj);
     }
 
     public Object getQueu() throws InterruptedException{
-        if(fileQueu.size() == 0){
+        if(this.size() == 0){
             return null;
         }
 
-        File file = (File)fileQueu.removeFirst();
-
+        File file = (File)this.removeFirst();
 
         return file;
     }
 
     public int getQueuSize(){
-        return fileQueu.size();
+        return this.size();
     }
 
 

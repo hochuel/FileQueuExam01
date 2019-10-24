@@ -6,16 +6,8 @@ public class FileReadThread extends Thread {
     private FileQueu fileQueu;
 
 
-    private ReadHandler readHandler;
-
-    public FileReadThread(FileList fileList, FileQueu fileQueu){
-        this.fileList = fileList;
+    public FileReadThread(FileQueu fileQueu){
         this.fileQueu = fileQueu;
-    }
-
-
-    public void setReadHandler(ReadHandler readHandler) {
-        this.readHandler = readHandler;
     }
 
     public void run(){
@@ -24,7 +16,7 @@ public class FileReadThread extends Thread {
             try {
                 File file = (File)fileList.getQueu();
                 if(file != null) {
-                    fileQueu.fileRead(this.getName(), file, readHandler);
+                    fileQueu.fileRead(this.getName(), file);
                 }
                 this.sleep(2000);
             }catch (Exception e){
