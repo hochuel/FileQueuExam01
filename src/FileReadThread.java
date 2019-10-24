@@ -2,21 +2,22 @@ import java.io.File;
 
 public class FileReadThread extends Thread {
 
-    private FileList fileList;
-    private FileQueu fileQueu;
+    private FileQueuMain fileQueuMain = null;
 
-
-    public FileReadThread(FileQueu fileQueu){
-        this.fileQueu = fileQueu;
+    public FileReadThread(FileQueuMain fileQueuMain){
+        this.fileQueuMain = fileQueuMain;
     }
 
     public void run(){
 
         while(true){
             try {
-                File file = (File)fileList.getQueu();
-                if(file != null) {
-                    fileQueu.fileRead(this.getName(), file);
+                int cnt = fileQueuMain.fileQueu.getFileCnt();
+                while(cnt > 0){
+                    String data = (String)fileQueuMain.fileQueu.getData();
+                    if(data != null) {
+                        System.out.println(data);
+                    }
                 }
                 this.sleep(2000);
             }catch (Exception e){

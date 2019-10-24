@@ -8,11 +8,24 @@ import java.util.Date;
 
 public class FileQueu {
 
+    private static FileQueu instance = new FileQueu();
+
     private FileList fileList = null;
     private ReadHandler readHandler = null;
 
-    public FileQueu() throws InterruptedException{
-        this.fileList = new FileList();
+
+    public static FileQueu getInstance(){
+        return instance;
+    }
+
+    public FileQueu(){
+        if(instance == null) {
+            try {
+                this.fileList = new FileList();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
 
@@ -44,7 +57,9 @@ public class FileQueu {
         channel.close();
         rf.close();
 
-        fileList.AddQueu(file);
+        System.out.println(fileName +" Create File...");
+
+        fileList.AddFileQueu(file);
 
     }
 
@@ -83,6 +98,31 @@ public class FileQueu {
     public String getDate(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss:SSS");
         return dateFormat.format(new Date(System.currentTimeMillis()));
+    }
+
+
+    public Object getData(){
+
+        Object result = null;
+        try{
+            File file = (File)fileList.getFileQueu();
+            if(file != null) {
+                System.out.println("file.getAbsolutePath() :" + file.getAbsolutePath());
+                fileRead(file);
+
+
+                result = readHandler.get();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+
+    public int getFileCnt(){
+        return fileList.getQueuSize();
     }
 
 }

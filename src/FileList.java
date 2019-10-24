@@ -30,23 +30,21 @@ public class FileList extends LinkedBlockingDeque{
 
         for (File tempFile : fileList) {
             if (tempFile.isFile()) {
-                AddQueu(tempFile);
+                AddFileQueu(tempFile);
             }
         }
     }
 
-    public void AddQueu(Object obj) throws InterruptedException{
+    public void AddFileQueu(Object obj) throws InterruptedException{
         this.add(obj);
     }
 
-    public Object getQueu() throws InterruptedException{
-        if(this.size() == 0){
-            return null;
+    public Object getFileQueu() throws InterruptedException{
+
+        if(this.size() > 0) {
+            return this.removeFirst();
         }
-
-        File file = (File)this.removeFirst();
-
-        return file;
+        return null;
     }
 
     public int getQueuSize(){

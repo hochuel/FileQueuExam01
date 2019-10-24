@@ -1,11 +1,11 @@
 public class FileWriteThread extends Thread {
 
 
-    private FileQueu fileQueu;
+    private FileQueuMain fileQueuMain;
 
-    public FileWriteThread(FileQueu fileQueu){
+    public FileWriteThread(FileQueuMain fileQueuMain){
 
-        this.fileQueu = fileQueu;
+        this.fileQueuMain = fileQueuMain;
     }
 
 
@@ -17,13 +17,15 @@ public class FileWriteThread extends Thread {
 
                 String str = "";
                 for(int i = 0; i < 10; i++){
-                    str += fileQueu.getDate()+ " test file data+["+index+"] \r\n";
+
+
+                    str += fileQueuMain.fileQueu.getDate()+ " test file data+["+index+"] \r\n";
 
                     index ++;
                 }
 
 
-                fileQueu.fileWrite(str);
+                fileQueuMain.fileQueu.fileWrite(str);
 
                 this.sleep(100);
 
