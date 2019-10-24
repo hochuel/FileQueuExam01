@@ -1,4 +1,4 @@
 public interface ReadHandler {
 
-    public void getHandler(byte[] data);
+    public void setHandler(byte[] data);
 }

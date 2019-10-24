@@ -5,12 +5,11 @@ import java.io.InputStreamReader;
 
 public class ReadHandlerProcess implements ReadHandler{
 
-    private ByteArrayInputStream is = null;
-    private BufferedReader br = null;
-
     @Override
-    public void getHandler(byte[] datas) {
+    public void setHandler(byte[] datas) {
 
+        ByteArrayInputStream is = null;
+        BufferedReader br = null;
 
         try {
             is = new ByteArrayInputStream(datas);
@@ -22,19 +21,20 @@ public class ReadHandlerProcess implements ReadHandler{
                 System.out.println("getHandler data :" + line);
 
             }
-
-            is.close();
-            br.close();
         }catch(IOException ex){
             ex.printStackTrace();
+        }finally {
+            try {
+                is.close();
+                br.close();
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
         }
 
 
-    }
 
 
-    public void close() throws IOException{
-        is.close();
-        br.close();
     }
+
 }
