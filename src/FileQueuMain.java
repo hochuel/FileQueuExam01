@@ -22,8 +22,5 @@ public class FileQueuMain {
             frt[i].setReadHandler(new ReadHandlerProcess());
             frt[i].start();
         }
-
-
-
     }
 }
