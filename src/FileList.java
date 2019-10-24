@@ -39,7 +39,7 @@ public class FileList extends LinkedBlockingDeque{
         this.add(obj);
     }
 
-    public Object getFileQueu(){
+    public synchronized Object getFileQueu(){
 
         if(this.size() > 0) {
             return this.removeFirst();
