@@ -22,6 +22,13 @@ public class FileQueu {
         if(instance == null) {
             try {
                 this.fileList = new FileList();
+                
+                File file = new File(filePath);
+                if(!file.isDirectory()){
+                	file.mkdirs();
+                }
+                
+                
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
@@ -33,7 +40,7 @@ public class FileQueu {
         this.readHandler = readHandler;
     }
 
-    private final String filePath = "/home/dextop/data/";
+    private final String filePath = "./home/dextop/data/";
 
 
     public void fileWrite(String str) throws IOException, InterruptedException {
