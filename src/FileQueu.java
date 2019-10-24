@@ -57,19 +57,19 @@ public class FileQueu {
         channel.close();
         rf.close();
 
-        System.out.println(fileName +" Create File...");
+        //System.out.println(fileName +" Create File...");
 
         fileList.AddFileQueu(file);
 
     }
 
 
-    public void fileRead(String threadName, File file) throws IOException{
+    public synchronized void fileRead(String threadName, File file) throws IOException{
 
         RandomAccessFile rf = null;
         FileChannel channel = null;
 
-        if(file != null) {
+        if(file != null && file.isFile()) {
             rf = new RandomAccessFile(file, "r");
             channel = rf.getChannel();
 
@@ -81,12 +81,11 @@ public class FileQueu {
 
             //System.out.println(threadName +"::" + file.getAbsolutePath() + "#########################");
             //System.out.println(new String(data));
-            readHandler.setHandler(data);
+            readHandler.setHandler(data, file);
 
             channel.close();
             rf.close();
 
-            file.delete();
         }
     }
 
@@ -106,8 +105,8 @@ public class FileQueu {
         Object result = null;
         try{
             File file = (File)fileList.getFileQueu();
-            if(file != null) {
-                System.out.println("file.getAbsolutePath() :" + file.getAbsolutePath());
+            if(file != null && file.isFile()) {
+                //System.out.println("file.getAbsolutePath() :" + file.getAbsolutePath());
                 fileRead(file);
 
 
