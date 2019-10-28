@@ -3,5 +3,7 @@
 
 사용방법
 FileQueuMain fileQueuMain = FileQueuMain.getInstance();
+
 fileQueuMain.fileQueu.fileWrite("This is test");
+
 System.out.println(fileQueuMain.fileQueu.get());
